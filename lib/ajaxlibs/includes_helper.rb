@@ -27,8 +27,9 @@ module Ajaxlibs::IncludesHelper
     raise Ajaxlibs::Exception::VersionNotFound unless Ajaxlibs::Libraries[library].has_key?(version)
     
     # Handle dependencies
+    requirements = ''
     if Ajaxlibs::Libraries[library][version][:requires] and !@included_javascript_libraries.has_key?(Ajaxlibs::Libraries[library][version][:requires])
-      javascript_include_library(Ajaxlibs::Libraries[library][version][:requires], options)
+      requirements = javascript_include_library(Ajaxlibs::Libraries[library][version][:requires], options)
     end
       
     @included_javascript_libraries[library] = version
@@ -36,9 +37,9 @@ module Ajaxlibs::IncludesHelper
     # Javascript load code
     if (options[:local] === true or options[:remote] === false) or
         (options[:local].nil? and options[:remote].nil? and RAILS_ENV != 'production')
-      javascript_include_tag ajaxlibs_local_path_for(library, version)
+      "#{requirements}\n#{javascript_include_tag(ajaxlibs_local_path_for(library, version))}"
     else
-      "google.load('#{library}', '#{version}');"
+      "#{requirements}\ngoogle.load('#{library}', '#{version}');"
     end
   end
 
