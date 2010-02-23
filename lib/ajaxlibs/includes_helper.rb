@@ -26,7 +26,7 @@ module Ajaxlibs::IncludesHelper
   end
   
   def ajaxlibs_local_path_for(library, version = nil)
-    version ||= AjaxLibs::VersionsTools.max(AjaxLibs::Libraries[library].keys)
+    version ||= Ajaxlibs::Libraries[library].keys.max {|a, b| Ajaxlibs::VersionsTools.compare a, b}
     filename = Ajaxlibs::Libraries[library][version][:uncompressed] || library.to_s
     File.join('ajaxlibs', library.to_s, version, filename)
   end
