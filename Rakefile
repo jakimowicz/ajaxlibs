@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "ajaxlibs"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{helper to load various javascript libraries, locally or through google CDN}
+    gem.description = %Q{ajaxlibs provides helpers to load various javascript libraries, specifying version number, locally served or using google CDN}
     gem.email = "fabien@jakimowicz.com"
     gem.homepage = "http://github.com/jakimowicz/ajaxlibs"
     gem.authors = ["Fabien Jakimowicz"]
