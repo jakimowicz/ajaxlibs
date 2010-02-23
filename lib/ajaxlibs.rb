@@ -1,6 +1,7 @@
 require 'ajaxlibs/libraries'
 require 'ajaxlibs/exceptions'
 require 'ajaxlibs/versions_tools'
+require 'ajaxlibs/javascript'
 require 'ajaxlibs/includes_helper'
 
 if Object.const_defined?(:Rails) and File.directory?(File.join(Rails.root, 'public'))
