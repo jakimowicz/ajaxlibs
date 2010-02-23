@@ -1,6 +1,9 @@
 require 'ajaxlibs/libraries'
+require 'ajaxlibs/includes_helper'
 
 if Object.const_defined?(:Rails) and File.directory?(File.join(Rails.root, 'public'))
+  ActionView::Base.send(:include, Ajaxlibs::IncludesHelper)
+
   ajaxlibs_js_path = File.join(Rails.root, 'public', 'javascripts', 'ajaxlibs')
   
   # We do not have already copied local javascript files, copying them right away
