@@ -1,4 +1,8 @@
 module Ajaxlibs::VersionsTools
+  def self.max_version_for(library)
+    Ajaxlibs::Libraries[library].keys.max {|a, b| Ajaxlibs::VersionsTools.compare a, b}
+  end
+  
   def self.compare(a, b)
     return 0 if a == b
     splitted_a, splitted_b = a.split('.'), b.split('.')

@@ -1,4 +1,5 @@
 require 'ajaxlibs/libraries'
+require 'ajaxlibs/exceptions'
 require 'ajaxlibs/versions_tools'
 require 'ajaxlibs/includes_helper'
 
