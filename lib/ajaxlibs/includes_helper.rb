@@ -15,14 +15,23 @@ module Ajaxlibs::IncludesHelper
   end
   
   def javascript_include_library(library, options)
+    @included_javascript_libraries ||= {}
+    
     # Check if required library exists
     raise Ajaxlibs::Exception::LibraryNotFound unless Ajaxlibs::Libraries.has_key?(library)
     
     # Set version if not set
-    version = options[:version] || Ajaxlibs::VersionsTools.max_version_for(library)
+    version = options.delete(:version) || Ajaxlibs::VersionsTools.max_version_for(library)
 
     # Check if required version exists for library
     raise Ajaxlibs::Exception::VersionNotFound unless Ajaxlibs::Libraries[library].has_key?(version)
+    
+    # Handle dependencies
+    if Ajaxlibs::Libraries[library][version][:requires] and !@included_javascript_libraries.has_key?(Ajaxlibs::Libraries[library][version][:requires])
+      javascript_include_library(Ajaxlibs::Libraries[library][version][:requires], options)
+    end
+      
+    @included_javascript_libraries[library] = version
     
     # Javascript load code
     if (options[:local] === true or options[:remote] === false) or
