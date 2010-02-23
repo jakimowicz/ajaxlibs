@@ -1,4 +1,6 @@
 module Ajaxlibs
+  GoogleJSAPI = "http://www.google.com/jsapi"
+  
   Libraries = {
     :jquery => {
       '1.2.3' => {},
