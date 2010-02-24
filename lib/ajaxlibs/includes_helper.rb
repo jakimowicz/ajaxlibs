@@ -15,36 +15,19 @@ module Ajaxlibs::IncludesHelper
   end
   
   def javascript_include_library(library, options)
-    @included_javascript_libraries ||= {}
+    @included_javascript_libraries ||= []
     
-    # Check if required library exists
-    raise Ajaxlibs::Exception::LibraryNotFound unless Ajaxlibs::Libraries.has_key?(library)
-    
-    # Set version if not set
-    version = options.delete(:version) || Ajaxlibs::VersionsTools.max_version_for(library)
-
-    # Check if required version exists for library
-    raise Ajaxlibs::Exception::VersionNotFound unless Ajaxlibs::Libraries[library].has_key?(version)
-    
-    # Handle dependencies
-    requirements = ''
-    if Ajaxlibs::Libraries[library][version][:requires] and !@included_javascript_libraries.has_key?(Ajaxlibs::Libraries[library][version][:requires])
-      requirements = javascript_include_library(Ajaxlibs::Libraries[library][version][:requires], options)
-    end
-      
-    @included_javascript_libraries[library] = version
+    version = options.delete(:version)
+    ajaxlib = Ajaxlibs::Library.by_name(library)
+          
+    @included_javascript_libraries << library
     
     # Javascript load code
     if (options[:local] === true or options[:remote] === false) or
         (options[:local].nil? and options[:remote].nil? and RAILS_ENV != 'production')
-      "#{requirements}\n#{javascript_include_tag(ajaxlibs_local_path_for(library, version))}"
+      javascript_include_tag ajaxlib.local_path(version)
     else
-      "#{requirements}\ngoogle.load('#{library}', '#{version}');"
+      ajaxlib.google_cdn_load_code version
     end
-  end
-
-  def ajaxlibs_local_path_for(library, version = nil)
-    filename = Ajaxlibs::Libraries[library][version][:uncompressed] || library.to_s
-    File.join('ajaxlibs', library.to_s, version, filename)
   end
 end

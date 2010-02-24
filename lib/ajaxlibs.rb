@@ -1,6 +1,11 @@
-require 'ajaxlibs/libraries'
+require 'ajaxlibs/constants'
 require 'ajaxlibs/exceptions'
 require 'ajaxlibs/versions_tools'
+require 'ajaxlibs/library'
+require 'ajaxlibs/libraries/jquery'
+require 'ajaxlibs/libraries/jqueryui'
+require 'ajaxlibs/libraries/prototype'
+require 'ajaxlibs/libraries/scriptaculous'
 require 'ajaxlibs/includes_helper'
 
 if Object.const_defined?(:Rails) and File.directory?(File.join(Rails.root, 'public'))
@@ -11,10 +16,10 @@ if Object.const_defined?(:Rails) and File.directory?(File.join(Rails.root, 'publ
   # We do not have already copied local javascript files, copying them right away
   unless File.directory?(ajaxlibs_js_path)
     FileUtils.mkdir_p(ajaxlibs_js_path)
-    Ajaxlibs::Libraries.each do |library, versions|
-      versions.each_key do |version|
-        source      = File.join(File.dirname(__FILE__), '..', 'public', library.to_s, version, '*.*')
-        destination = File.join(ajaxlibs_js_path, library.to_s, version)
+    Ajaxlibs::Library.all.each do |library|
+      library::Versions.each do |version|
+        source      = File.join(File.dirname(__FILE__), '..', 'public', library.library_name, version, '*.*')
+        destination = File.join(ajaxlibs_js_path, library.library_name, version)
         FileUtils.mkdir_p(destination)
         FileUtils.cp(Dir.glob(source), destination)
       end
