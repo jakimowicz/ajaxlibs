@@ -6,11 +6,11 @@ class Ajaxlibs::Library::Jqueryui < Ajaxlibs::Library
               '1.7.1',
               '1.7.2']
 
-  def requires
+  def requires #:nodoc:
     'jquery'
   end
   
-  def filename
+  def filename #:nodoc:
     "jquery-ui"
   end
 end

@@ -1,4 +1,48 @@
 module Ajaxlibs::IncludesHelper
+  # Returns an html script tag for each javascript library name provided.
+  # By default, javascript files are loaded locally for development and test environment,
+  # and through Google CDN on production environment. Basic dependencies are automatically handled.
+  #
+  # == Options
+  # * <tt>version</tt> : specify the version to use for each library
+  # * <tt>local</tt> : if true, always serve file locally, if false, use Google CDN
+  # * <tt>remote</tt> : if false, always serve file locally, if true, use Google CDN
+  #
+  # == Exceptions
+  # * <tt>Ajaxlibs::Exception::LibraryNotFound</tt> : raised if one or more of the given library is not available
+  # * <tt>Ajaxlibs::Exception::VersionNotFound</tt> : raised if given version is not available for this/these library/libraries
+  #
+  # == Examples
+  # * Simple library load, under the development environment
+  #  ajaxlibs_include :jquery
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
+  #
+  #  ajaxlibs_include :jquery, :jqueryui
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script> 
+  #    <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.js" type="text/javascript"></script>
+  #
+  # * Same examples as above, this time in production
+  #  ajaxlibs_include :jquery
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
+  #
+  #  ajaxlibs_include :jquery, :jqueryui
+  #    <script type="text/javascript" src="http://www.google.com/jsapi"></script> 
+  #    <script type="text/javascript"> 
+  #    //<![CDATA[
+  #    google.load('jquery', '1.4.2');
+  #    google.load('jqueryui', '1.7.2');
+  #    //]]>
+  #    </script>
+  #
+  # * Specifying version
+  #  ajaxlibs_include :prototype, :version => '1.6.0.3'
+  #    <script src="/javascripts/ajaxlibs/prototype/1.6.0.3/prototype.js?1267013480" type="text/javascript"></script>
+  #
+  # * Automatic dependencies
+  #  ajaxlibs_include :scriptaculous
+  #    <script src="/javascripts/ajaxlibs/prototype/1.6.1.0/prototype.js?1267013480" type="text/javascript"></script> 
+  #    <script src="/javascripts/ajaxlibs/scriptaculous/1.8.3/scriptaculous.js?1267013481" type="text/javascript"></script>
+  #
   def ajaxlibs_include(*args)
     options = (Hash === args.last) ? args.pop : {}
 
@@ -14,6 +58,7 @@ module Ajaxlibs::IncludesHelper
     end
   end
   
+  private
   def javascript_include_library(library, options)
     @included_javascript_libraries ||= []
     
