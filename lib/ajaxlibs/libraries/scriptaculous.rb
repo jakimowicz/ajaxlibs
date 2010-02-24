@@ -4,6 +4,6 @@ class Ajaxlibs::Library::Scriptaculous < Ajaxlibs::Library
               '1.8.3']
   
   def requires
-    nil
+    'prototype'
   end
 end
