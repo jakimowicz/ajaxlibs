@@ -51,15 +51,6 @@ class Ajaxlibs::Library
     self.class::Versions.max {|a, b| Ajaxlibs::VersionsTools.compare a, b}
   end
   
-  # Checks if given version is available for this library,
-  # raises Ajaxlibs::Exception::VersionNotFound if not and returns it.
-  # Passing a nil value will returns the latest available version
-  def check_version_or_latest_version(version = nil)
-    version ||= latest_version
-    raise Ajaxlibs::Exception::VersionNotFound unless self.class::Versions.include?(version)
-    version
-  end
-    
   # Local path for a particular version, or the latest if given version is nil.
   def local_path(version = nil)
     File.join('ajaxlibs', library_name, check_version_or_latest_version(version), file_name)
@@ -68,5 +59,15 @@ class Ajaxlibs::Library
   # Javascript load code through google jsapi for a particular version, or the latest if given version is nil.
   def google_cdn_load_code(version = nil)
     "google.load('#{library_name}', '#{check_version_or_latest_version(version)}');"
+  end
+  
+  private
+  # Checks if given version is available for this library,
+  # raises Ajaxlibs::Exception::VersionNotFound if not and returns it.
+  # Passing a nil value will returns the latest available version
+  def check_version_or_latest_version(version = nil)
+    version ||= latest_version
+    raise Ajaxlibs::Exception::VersionNotFound unless self.class::Versions.include?(version)
+    version
   end
 end
