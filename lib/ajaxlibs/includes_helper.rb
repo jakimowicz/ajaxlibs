@@ -68,7 +68,7 @@ module Ajaxlibs::IncludesHelper
     result = []
     
     # Handle dependencies between libraries
-    if ajaxlib.requires and !@included_javascript_libraries.include?(ajaxlib.requires)
+    if ajaxlib.requires and !@included_javascript_libraries.include?(ajaxlib.requires.to_sym)
       result << javascript_include_library(ajaxlib.requires, options)
     end
           
