@@ -1,5 +1,14 @@
 = Ajaxlibs
 
+== Synopsis
+
+Simplify standard javascript library includes :
+* specify your library name and if necessary version number
+* provides most common javascript libraries, no need to download them
+* easy CDN for javascript libraries : relies on Google CDN to distribute javascript files on production environment
+
+All that using a simple helper ruby method.
+
 == Description
 
 Ajaxlibs provides helpers to load various javascript libraries, specifying version number, locally served or using google CDN.
