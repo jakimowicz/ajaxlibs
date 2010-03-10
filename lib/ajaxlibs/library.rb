@@ -7,6 +7,9 @@ require 'ajaxlibs/versions_tools'
 class Ajaxlibs::Library
   # Available versions for this library.
   Versions = []
+  Requirements = {}
+  
+  attr_reader :version, :source
   
   @@subclasses = {}
 
@@ -19,9 +22,9 @@ class Ajaxlibs::Library
     @@subclasses.values
   end
   
-  # Search a specific library by its name, could by either a string or a symbol.
-  def self.by_name(name)
-    @@subclasses[name.to_sym].new
+  # Search a specific library by its name (could be either a string or a symbol) and initialized it with given version and source.
+  def self.by_name(name, options = {})
+    @@subclasses[name.to_sym].new options
   rescue NoMethodError
     raise Ajaxlibs::Exception::LibraryNotFound
   end
@@ -31,9 +34,14 @@ class Ajaxlibs::Library
     name.match(/::(\w+)$/)[1].downcase
   end
   
+  def initialize(options = {})
+    @version  = check_version_or_latest_version(options[:version])
+    @source   = options[:source] || :local
+  end
+  
   # Returns requirements for a library (for example, prototype for scriptaculous)
   def requires
-    nil
+    self.class::Requirements[@version] || self.class::Requirements[:all]
   end
   
   # Library name based on class name
@@ -52,13 +60,21 @@ class Ajaxlibs::Library
   end
   
   # Local path for a particular version, or the latest if given version is nil.
-  def local_path(version = nil)
-    File.join('ajaxlibs', library_name, check_version_or_latest_version(version), file_name)
+  def local_path
+    File.join('ajaxlibs', library_name, version, file_name)
   end
   
   # Javascript load code through google jsapi for a particular version, or the latest if given version is nil.
-  def google_cdn_load_code(version = nil)
-    "google.load('#{library_name}', '#{check_version_or_latest_version(version)}');"
+  def google_cdn_load_code
+    "google.load('#{library_name}', '#{version}');"
+  end
+  
+  def local_only?
+    false
+  end
+  
+  def ==(other)
+    self.class == other.class and self.version == other.version and self.source == other.source
   end
   
   private

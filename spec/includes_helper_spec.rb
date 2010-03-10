@@ -54,7 +54,7 @@ describe "Ajaxlibs::IncludesHelper" do
       example "once for specified library, avoiding multiple includes" do
         @fake_action_view.should_receive(:javascript_include_tag).
                           with(Ajaxlibs::Library.by_name(:prototype).local_path).
-                          once.times
+                          once
                           
         @fake_action_view.ajaxlibs_include :prototype, :prototype
       end      
@@ -62,7 +62,7 @@ describe "Ajaxlibs::IncludesHelper" do
       context "while specifying a specific version number" do
         example "once if one library was specified" do
           @fake_action_view.should_receive(:javascript_include_tag).
-                            with(Ajaxlibs::Library.by_name(:prototype).local_path('1.6.0.3')).
+                            with(Ajaxlibs::Library.by_name(:prototype, :version => '1.6.0.3').local_path).
                             once
 
           @fake_action_view.ajaxlibs_include :prototype, :version => '1.6.0.3'
@@ -96,31 +96,21 @@ describe "Ajaxlibs::IncludesHelper" do
       end
 
       example "once for each specified library" do
-        @fake_action_view.should_receive(:javascript_tag).
-                          with([
-                                Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code,
-                                Ajaxlibs::Library.by_name(:scriptaculous).google_cdn_load_code
-                               ].join("\n")).
-                          once
-                          
+        @fake_action_view.should_receive(:javascript_tag).with(Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code).once
+        @fake_action_view.should_receive(:javascript_tag).with(Ajaxlibs::Library.by_name(:scriptaculous).google_cdn_load_code).once
         @fake_action_view.ajaxlibs_include :prototype, :scriptaculous
       end
 
       example "once for each specified library and dependendencies" do
-        @fake_action_view.should_receive(:javascript_tag).
-                          with([
-                                Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code,
-                                Ajaxlibs::Library.by_name(:scriptaculous).google_cdn_load_code
-                               ].join("\n")).
-                          once
-      
+        @fake_action_view.should_receive(:javascript_tag).with(Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code).once
+        @fake_action_view.should_receive(:javascript_tag).with(Ajaxlibs::Library.by_name(:scriptaculous).google_cdn_load_code).once                                
         @fake_action_view.ajaxlibs_include :scriptaculous
       end
       
       example "once for specified library, avoiding multiple includes" do
         @fake_action_view.should_receive(:javascript_tag).
                           with(Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code).
-                          once.times
+                          once
                           
         @fake_action_view.ajaxlibs_include :prototype, :prototype
       end      
@@ -128,8 +118,8 @@ describe "Ajaxlibs::IncludesHelper" do
       context "while specifying a specific version number" do
         example "once if one library was specified" do
           @fake_action_view.should_receive(:javascript_tag).
-                            with(Ajaxlibs::Library.by_name(:prototype).google_cdn_load_code('1.6.0.3')).
-                            once.times
+                            with(Ajaxlibs::Library.by_name(:prototype, :version => '1.6.0.3').google_cdn_load_code).
+                            once
 
           @fake_action_view.ajaxlibs_include :prototype, :version => '1.6.0.3'
         end
