@@ -8,7 +8,7 @@ class Ajaxlibs::Library::Dojo < Ajaxlibs::Library
               "1.4.0",
               "1.4.1"]
   
-  def filename #:nodoc:
+  def file_name #:nodoc:
     "dojo.xd.js.uncompressed"
   end
 end

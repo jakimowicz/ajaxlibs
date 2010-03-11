@@ -8,7 +8,7 @@ class Ajaxlibs::Library::Jqueryui < Ajaxlibs::Library
 
   Requirements = {:all => {:jquery => nil}}
 
-  def filename #:nodoc:
+  def file_name #:nodoc:
     "jquery-ui"
   end
 end
