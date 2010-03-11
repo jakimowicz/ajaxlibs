@@ -83,16 +83,25 @@ describe "Ajaxlibs::Library" do
         @library.local_path.should == "ajaxlibs/basic/2.0.1.3/basic"
       end
       
+      example "while calling include_path" do
+        @library.include_path.should == @library.local_path
+      end
+      
     end
     
     context "will return a javascript code to load from google cdn with library_name and version" do
       example "using provided version if specified" do
         @library = Ajaxlibs::Library::Basic.new(:version => '1.8.1')
-        @library.google_cdn_load_code.should == "google.load('basic', '1.8.1');"
+        @library.google_cdn_include_path.should == "http://ajax.googleapis.com/ajax/libs/basic/1.8.1/basic.js"
       end
       
       example "using latest version if none was specified" do
-        @library.google_cdn_load_code.should == "google.load('basic', '2.0.1.3');"
+        @library.google_cdn_include_path.should == "http://ajax.googleapis.com/ajax/libs/basic/2.0.1.3/basic.js"
+      end      
+
+      example "while calling include_path" do
+        @library = Ajaxlibs::Library::Basic.new(:source => :remote)
+        @library.include_path.should == @library.google_cdn_include_path
       end      
     end    
   end

@@ -64,9 +64,14 @@ class Ajaxlibs::Library
     File.join('ajaxlibs', library_name, version, file_name)
   end
   
-  # Javascript load code through google jsapi for a particular version, or the latest if given version is nil.
-  def google_cdn_load_code
-    "google.load('#{library_name}', '#{version}');"
+  # Include path using google CDN
+  def google_cdn_include_path
+    "http://ajax.googleapis.com/ajax/libs/#{library_name}/#{version}/#{file_name}.js"
+  end
+  
+  # Javascript include path regarding source (call either local_path or google_cdn_include_path)
+  def include_path
+    source == :local ? local_path : google_cdn_include_path
   end
   
   def local_only?

@@ -19,20 +19,15 @@ module Ajaxlibs::IncludesHelper
   #
   #  ajaxlibs_include :jquery, :jqueryui
   #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script> 
-  #    <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.js" type="text/javascript"></script>
+  #    <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.js?1267013480" type="text/javascript"></script>
   #
   # * Same examples as above, this time in production
   #  ajaxlibs_include :jquery
-  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
   #
   #  ajaxlibs_include :jquery, :jqueryui
-  #    <script type="text/javascript" src="http://www.google.com/jsapi"></script> 
-  #    <script type="text/javascript"> 
-  #    //<![CDATA[
-  #    google.load('jquery', '1.4.2');
-  #    google.load('jqueryui', '1.7.2');
-  #    //]]>
-  #    </script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js" type="text/javascript"></script>
   #
   # * Specifying version
   #  ajaxlibs_include :prototype, :version => '1.6.0.3'
@@ -48,23 +43,7 @@ module Ajaxlibs::IncludesHelper
     
     includes = args.collect {|library| javascript_include_library library, options}.flatten.compact
     
-    @google_js_api_loaded ||= false
-    google_js_api_needed    = false
-    
-    result = includes.collect do |ajaxlib|
-      if ajaxlib.source == :local
-        javascript_include_tag ajaxlib.local_path
-      else
-        google_js_api_needed = true
-        javascript_tag ajaxlib.google_cdn_load_code
-      end
-    end
-    
-    if !@google_js_api_loaded and google_js_api_needed
-      result.insert(0, "<script type=\"text/javascript\" src=\"#{Ajaxlibs::GoogleJSAPI}\"></script>")
-    end
-    
-    result.join("\n")
+    includes.collect {|ajaxlib| javascript_include_tag ajaxlib.include_path}.join("\n")
   end
   
   private
