@@ -71,7 +71,7 @@ class Ajaxlibs::Library
   
   # Javascript include path regarding source (call either local_path or google_cdn_include_path)
   def include_path
-    source == :local ? local_path : google_cdn_include_path
+    (source == :local or local_only?) ? local_path : google_cdn_include_path
   end
   
   def local_only?

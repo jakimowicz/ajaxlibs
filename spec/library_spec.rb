@@ -85,8 +85,17 @@ describe "Ajaxlibs::Library" do
       
       example "while calling include_path" do
         @library.include_path.should == @library.local_path
-      end
-      
+      end      
+    end
+    
+    it "will return a local path if library is local only" do
+      @library = Ajaxlibs::Library::Jrails.new
+      @library.include_path.should == @library.local_path
+    end
+    
+    it "will return a local path if library is local only even if asked for remote source" do
+      @library = Ajaxlibs::Library::Jrails.new(:source => :remote)
+      @library.include_path.should == @library.local_path
     end
     
     context "will return a javascript code to load from google cdn with library_name and version" do
