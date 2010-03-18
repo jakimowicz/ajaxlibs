@@ -60,10 +60,8 @@ module Ajaxlibs::IncludesHelper
     
     result = []
     
-    if ajaxlib.requires
-      ajaxlib.requires.each do |required_library, required_version|
-        result << javascript_include_library(required_library, :version => required_version)
-      end
+    ajaxlib.requires.each do |required_library, required_version|
+      result << javascript_include_library(required_library, :version => required_version)
     end
     
     result << ajaxlib

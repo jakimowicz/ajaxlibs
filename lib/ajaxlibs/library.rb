@@ -41,7 +41,7 @@ class Ajaxlibs::Library
   
   # Returns requirements for a library (for example, prototype for scriptaculous)
   def requires
-    self.class::Requirements[@version] || self.class::Requirements[:all]
+    self.class::Requirements[@version] || self.class::Requirements[:all] || {}
   end
   
   # Library name based on class name

@@ -4,12 +4,13 @@ module Ajaxlibs::VersionsTools
   # * 1 if a > b
   # * 0 if a == b
   # * -1 if a < b
-  def self.compare(a, b)
-    return 0 if a == b
-    splitted_a, splitted_b = a.split('.'), b.split('.')
-    splitted_a.each_with_index do |node, i|
-      break if node < splitted_b[i]
-      return 1 if node > splitted_b[i]
+  def self.compare(version_a, version_b)
+    return 0 if version_a == version_b
+    splitted_a, splitted_b = version_a.split('.'), version_b.split('.')
+    splitted_a.each_with_index do |a_node, idx|
+      b_node = splitted_b[idx]
+      break if a_node < b_node
+      return 1 if a_node > b_node
     end
     return -1
   end
