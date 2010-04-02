@@ -4,7 +4,8 @@ class Ajaxlibs::Library::Jqueryui < Ajaxlibs::Library
               '1.6'  ,
               '1.7.0',
               '1.7.1',
-              '1.7.2']
+              '1.7.2',
+              '1.8.0']
 
   Requirements = {:all => {:jquery => nil}}
 
