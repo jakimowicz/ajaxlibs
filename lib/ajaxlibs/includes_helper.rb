@@ -6,7 +6,6 @@ module Ajaxlibs::IncludesHelper
   # == Options
   # * <tt>version</tt> : specify the version to use for each library
   # * <tt>local</tt> : if true, always serve file locally, if false, use Google CDN
-  # * <tt>remote</tt> : if false, always serve file locally, if true, use Google CDN
   #
   # == Exceptions
   # * <tt>Ajaxlibs::Exception::LibraryNotFound</tt> : raised if one or more of the given library is not available
@@ -50,8 +49,9 @@ module Ajaxlibs::IncludesHelper
   def javascript_include_library(library, options)
     library = library.to_sym
     version = options.delete(:version)
-    source  = (options[:local] === true or RAILS_ENV != 'production') ? :local : :remote
-    ajaxlib = Ajaxlibs::Library.by_name(library, :version => version, :source => source)
+    local   = options.delete(:local)
+    options[:source] = (local === true or (local.nil? and RAILS_ENV != 'production')) ? :local : :remote
+    ajaxlib = Ajaxlibs::Library.by_name(library, options.merge({:version => version}))
 
     @included_javascript_libraries ||= []
     
@@ -61,7 +61,7 @@ module Ajaxlibs::IncludesHelper
     result = []
     
     ajaxlib.requires.each do |required_library, required_version|
-      result << javascript_include_library(required_library, :version => required_version)
+      result << javascript_include_library(required_library, options.merge({:version => required_version}))
     end
     
     result << ajaxlib

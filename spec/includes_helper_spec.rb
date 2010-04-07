@@ -69,6 +69,15 @@ describe "Ajaxlibs::IncludesHelper" do
         end
       end # end of context "while specifying a specific version number"
     end # end of context "should call javascript_include_tag to include local javascript library file"
+    
+    example "should call javascript_include_tag with google cdn include path if specified source is remote" do
+      @fake_action_view.should_receive(:javascript_include_tag).
+                        with(Ajaxlibs::Library.by_name(:prototype).google_cdn_include_path).
+                        once
+
+      @fake_action_view.ajaxlibs_include :prototype, :local => :false
+    end
+    
   end # end of context "in development environment"
   
   context "in production environment" do
@@ -108,7 +117,15 @@ describe "Ajaxlibs::IncludesHelper" do
                           once
                           
         @fake_action_view.ajaxlibs_include :prototype, :prototype
-      end      
+      end
+      
+      example "using a secured connection if secured was specified" do
+        @fake_action_view.should_receive(:javascript_include_tag).
+                          with(Ajaxlibs::Library.by_name(:prototype, :secure => true).google_cdn_include_path).
+                          once
+                          
+        @fake_action_view.ajaxlibs_include :prototype, :secure => true
+      end
       
       context "while specifying a specific version number" do
         example "once if one library was specified" do
