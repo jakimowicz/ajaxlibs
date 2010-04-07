@@ -9,7 +9,7 @@ class Ajaxlibs::Library
   Versions = []
   Requirements = {}
   
-  attr_reader :version, :source
+  attr_reader :version, :source, :secure
   
   @@subclasses = {}
 
@@ -23,6 +23,7 @@ class Ajaxlibs::Library
   end
   
   # Search a specific library by its name (could be either a string or a symbol) and initialized it with given version and source.
+  # See initialize method for available <tt>options</tt>.
   def self.by_name(name, options = {})
     @@subclasses[name.to_sym].new options
   rescue NoMethodError
@@ -34,9 +35,15 @@ class Ajaxlibs::Library
     name.match(/::(\w+)$/)[1].downcase
   end
   
+  # Initialize a new instance of a specific library.
+  # <tt>options</tt> can take the following arguments :
+  # * <tt>:version</tt> : specify a version (ex: "1.8.1").
+  # * <tt>:source</tt> : force the source to use, default to <tt>:local</tt>.
+  # * <tt>:secure</tt> : specify if the generated link should be secured (https) or not. Default is <tt>false</tt>.
   def initialize(options = {})
     @version  = check_version_or_latest_version(options[:version])
     @source   = options[:source] || :local
+    @secure   = options[:secure] || false
   end
   
   # Returns requirements for a library (for example, prototype for scriptaculous)
@@ -66,7 +73,8 @@ class Ajaxlibs::Library
   
   # Include path using google CDN
   def google_cdn_include_path
-    "http://ajax.googleapis.com/ajax/libs/#{library_name}/#{version}/#{file_name}.js"
+    scheme = secure ? "https" : "http"
+    "#{scheme}://ajax.googleapis.com/ajax/libs/#{library_name}/#{version}/#{file_name}.js"
   end
   
   # Javascript include path regarding source (call either local_path or google_cdn_include_path)

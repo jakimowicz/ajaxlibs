@@ -88,6 +88,16 @@ describe "Ajaxlibs::Library" do
       end      
     end
     
+    it "will return a secured (https) link if asked for secure" do
+      @library = Ajaxlibs::Library::Basic.new(:secure => true)
+      @library.google_cdn_include_path.should == "https://ajax.googleapis.com/ajax/libs/basic/2.0.1.3/basic.js"
+    end
+    
+    it "will return a secured (https) link if asked for secure" do
+      @library = Ajaxlibs::Library::Basic.new(:secure => false)
+      @library.google_cdn_include_path.should == "http://ajax.googleapis.com/ajax/libs/basic/2.0.1.3/basic.js"
+    end
+    
     it "will return a local path if library is local only" do
       @library = Ajaxlibs::Library::Jrails.new
       @library.include_path.should == @library.local_path
