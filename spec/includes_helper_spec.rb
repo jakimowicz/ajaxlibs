@@ -75,7 +75,7 @@ describe "Ajaxlibs::IncludesHelper" do
                         with(Ajaxlibs::Library.by_name(:prototype).google_cdn_include_path).
                         once
 
-      @fake_action_view.ajaxlibs_include :prototype, :local => :false
+      @fake_action_view.ajaxlibs_include :prototype, :local => false
     end
     
   end # end of context "in development environment"
