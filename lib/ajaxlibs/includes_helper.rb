@@ -50,7 +50,7 @@ module Ajaxlibs::IncludesHelper
     library = library.to_sym
     version = options.delete(:version)
     local   = options.delete(:local)
-    options[:source] = (local === true or (local.nil? and RAILS_ENV != 'production')) ? :local : :remote
+    options[:source] ||= (local === true or (local.nil? and RAILS_ENV != 'production')) ? :local : :remote
     ajaxlib = Ajaxlibs::Library.by_name(library, options.merge({:version => version}))
 
     @included_javascript_libraries ||= []
