@@ -70,6 +70,12 @@ will produce :
  <script src="/javascripts/ajaxlibs/prototype/1.6.1.0/prototype.js?1267013480" type="text/javascript"></script> 
  <script src="/javascripts/ajaxlibs/scriptaculous/1.8.3/scriptaculous.js?1267013481" type="text/javascript"></script>
 
+=== define alternate production environments
+
+You can define alternate production environments to use CDNs under those environments :
+
+	Ajaxlibs::ProductionEnvironments << 'another_production_environment'
+
 == Installation
 
 First, install gem on your system and servers. You can also specify it as a dependency on your rails enviroment :

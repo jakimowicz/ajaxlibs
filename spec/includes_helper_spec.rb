@@ -81,13 +81,24 @@ describe "Ajaxlibs::IncludesHelper" do
   end # end of context "in development environment"
   
   context "in production environment" do
-    before :all do
+    before :each do
       Object.send(:remove_const, 'RAILS_ENV') if Object.const_defined?('RAILS_ENV')
       RAILS_ENV = 'production'
     end
 
     context "should call javascript_include_tag with google cdn include path" do
       example "once if only one library was specified" do
+        @fake_action_view.should_receive(:javascript_include_tag).
+                          with(Ajaxlibs::Library.by_name(:prototype).google_cdn_include_path).
+                          once
+
+        @fake_action_view.ajaxlibs_include :prototype
+      end
+
+      example "on environments defined in ProductionEnvironments" do
+        Ajaxlibs::ProductionEnvironments << 'fake_production_environment'
+        Object.send(:remove_const, 'RAILS_ENV') if Object.const_defined?('RAILS_ENV')
+        RAILS_ENV = 'fake_production_environment'
         @fake_action_view.should_receive(:javascript_include_tag).
                           with(Ajaxlibs::Library.by_name(:prototype).google_cdn_include_path).
                           once
