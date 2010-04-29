@@ -7,6 +7,6 @@ class Ajaxlibs::Library::ExtCore < Ajaxlibs::Library
   end
   
   def file_name #:nodoc:
-    "ext-core-debug"
+    @minified ? 'ext-core' : 'ext-core-debug'
   end
 end

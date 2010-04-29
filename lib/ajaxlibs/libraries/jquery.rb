@@ -7,4 +7,8 @@ class Ajaxlibs::Library::Jquery < Ajaxlibs::Library
               '1.4.0',
               '1.4.1',
               '1.4.2']
+  
+  def file_name #:nodoc:
+    @minified ? 'jquery.min' : 'jquery'
+  end
 end

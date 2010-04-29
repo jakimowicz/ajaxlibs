@@ -10,6 +10,6 @@ class Ajaxlibs::Library::Jqueryui < Ajaxlibs::Library
   Requirements = {:all => {:jquery => nil}}
 
   def file_name #:nodoc:
-    "jquery-ui"
+    @minified ? 'jquery-ui.min' : 'jquery-ui'
   end
 end

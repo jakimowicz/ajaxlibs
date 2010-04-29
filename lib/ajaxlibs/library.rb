@@ -40,9 +40,11 @@ class Ajaxlibs::Library
   # * <tt>:version</tt> : specify a version (ex: "1.8.1").
   # * <tt>:source</tt> : force the source to use, default to <tt>:local</tt>.
   # * <tt>:secure</tt> : specify if the generated link should be secured (https) or not. Default is <tt>false</tt>.
+  # * <tt>:minified</tt> : <tt>true</tt> if you want a minified version of the javascript library, <tt>false</tt> otherwise. Default is <tt>true</tt>.
   def initialize(options = {})
     @version  = check_version_or_latest_version(options[:version])
     @source   = options[:source] || :local
+    @minified = options[:minified].nil? ? true : options[:minified]
     @secure   = options[:secure] || false
   end
   

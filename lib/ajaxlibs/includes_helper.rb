@@ -6,6 +6,8 @@ module Ajaxlibs::IncludesHelper
   # == Options
   # * <tt>version</tt> : specify the version to use for each library
   # * <tt>local</tt> : if true, always serve file locally, if false, use Google CDN
+  # * <tt>:secure</tt> : specify if the generated link should be secured (https) or not. Default is <tt>false</tt>.
+  # * <tt>:minified</tt> : <tt>true</tt> if you want a minified version of the javascript library, <tt>false</tt> otherwise. Default is <tt>true</tt>.
   #
   # == Exceptions
   # * <tt>Ajaxlibs::Exception::LibraryNotFound</tt> : raised if one or more of the given library is not available
@@ -14,23 +16,27 @@ module Ajaxlibs::IncludesHelper
   # == Examples
   # * Simple library load, under the development environment
   #  ajaxlibs_include :jquery
-  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script>
   #
   #  ajaxlibs_include :jquery, :jqueryui
-  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script> 
-  #    <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.js?1267013480" type="text/javascript"></script>
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script> 
+  #    <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jquery-ui.min.js?1267013480" type="text/javascript"></script>
   #
   # * Same examples as above, this time in production
   #  ajaxlibs_include :jquery
-  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
   #
   #  ajaxlibs_include :jquery, :jqueryui
-  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
-  #    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js" type="text/javascript"></script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+  #    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
   #
   # * Specifying version
   #  ajaxlibs_include :prototype, :version => '1.6.0.3'
   #    <script src="/javascripts/ajaxlibs/prototype/1.6.0.3/prototype.js?1267013480" type="text/javascript"></script>
+  #
+  # * Ask for a non-minified version
+  #  ajaxlibs_include :jquery, :minified => false
+  #    <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
   #
   # * Automatic dependencies
   #  ajaxlibs_include :scriptaculous

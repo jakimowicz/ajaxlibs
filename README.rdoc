@@ -25,11 +25,11 @@ You can specify a specific version of each library to use, or the latest availab
 
 will produce, under the development environment :
 
- <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
+ <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script>
 
 and in production :
 
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery,min.js" type="text/javascript"></script>
 
 === multiple libraries load
 
@@ -37,13 +37,13 @@ and in production :
 
 in development environment :
 
- <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script> 
- <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.js?1267013480" type="text/javascript"></script>
+ <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script> 
+ <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.min.js?1267013480" type="text/javascript"></script>
 
 this time in production :
 
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js" type="text/javascript"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
 
 === forcing a version
 
@@ -59,7 +59,17 @@ will produce :
 
 used in production, will produce :
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+=== minified / non-minified
+
+By default, each javascript are the minified version. But you can ask for a plain version :
+
+ <%= ajaxlibs_include :jquery, :minified => false %>
+
+will produce
+
+ <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.js?1267013480" type="text/javascript"></script>
 
 === automatic dependencies
 
