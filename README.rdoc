@@ -112,7 +112,6 @@ Finally, include some javascript libraries to your views or layouts :
 == TODO
 
 * support more javascript libraries : available though Google CDN (mootools, ...), not available through Google CDN (jrails, ...), available only from google (google maps, ...).
-* support plain/minified versions.
 * provide a rake task to copy only required javascript libraries.
 * automatic support for jrails.
 
