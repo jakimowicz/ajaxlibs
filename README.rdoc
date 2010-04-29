@@ -17,6 +17,16 @@ In development environment, it provides local javascript files for the developme
 
 You can specify a specific version of each library to use, or the latest available.
 
+== Supported Libraries
+
+* dojo
+* jquery
+* jquery-ui
+* jrails
+* mootools
+* prototype
+* scriptaculous
+
 == Examples
 
 === simple library load, under the development environment
