@@ -20,6 +20,7 @@ You can specify a specific version of each library to use, or the latest availab
 == Supported Libraries
 
 * dojo
+* ext-core (use <tt>:extcore</tt> to load it)
 * jquery
 * jquery-ui
 * jrails
