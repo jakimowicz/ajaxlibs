@@ -9,4 +9,12 @@ class Ajaxlibs::Library::Jrails < Ajaxlibs::Library
   def local_only?
     true
   end
+  
+  def initialize(options = {})
+    require 'rubygems'
+    require 'jrails' # Check if we have jrails support before trying to load it
+    super
+  rescue LoadError
+    raise "jrails gem is missing, you must install it."
+  end
 end
