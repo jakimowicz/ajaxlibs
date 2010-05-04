@@ -109,11 +109,14 @@ Finally, include some javascript libraries to your views or layouts :
 
  <%= ajaxlibs_include :scriptaculous %>
 
+=== Migration
+==== from 0.1.9 and below
+
+Ajaxlibs prior to version 0.1.10 was copying all javascript libraries in all available version to the public javascript directory. Version 0.1.10 provide an automatic copy of needed libraries in their local version (copy is not performed if you are using google CDN, in production environment by default). You can now safely remove <tt>public/javascripts/ajaxlibs</tt> and ignore it in your SCM.
+
 == TODO
 
 * support more javascript libraries : available though Google CDN (mootools, ...), not available through Google CDN (jrails, ...), available only from google (google maps, ...).
-* provide a rake task to copy only required javascript libraries.
-* automatic support for jrails.
 
 == Note on Patches/Pull Requests
  
