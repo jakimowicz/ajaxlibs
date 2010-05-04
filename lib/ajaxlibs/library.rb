@@ -69,7 +69,9 @@ class Ajaxlibs::Library
   end
   
   # Local path for a particular version, or the latest if given version is nil.
+  # Search for the file in rails public path and copy it if needed.
   def local_path
+    check_and_copy_local_file_to_rails_public
     File.join('ajaxlibs', library_name, version, file_name)
   end
   
@@ -100,5 +102,21 @@ class Ajaxlibs::Library
     version ||= latest_version
     raise Ajaxlibs::Exception::VersionNotFound unless self.class::Versions.include?(version)
     version
+  end
+  
+  def check_and_copy_local_file_to_rails_public
+    if Object.const_defined?(:Rails) and File.directory?(File.join(Rails.root, 'public'))
+
+      ajaxlibs_js_path  = File.join(Rails.root, 'public', 'javascripts', 'ajaxlibs')
+      source_path       = File.join(File.dirname(__FILE__), '../../public', library_name, version)
+      source            = File.join(source_path, '*.*')
+      destination       = File.join(ajaxlibs_js_path, library_name, version)
+      
+      if not File.exists?(destination) or Dir.entries(source_path) != Dir.entries(destination)
+        FileUtils.mkdir_p(destination)
+        FileUtils.cp(Dir.glob(source), destination)
+      end
+
+    end
   end
 end
