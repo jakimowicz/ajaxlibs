@@ -10,6 +10,7 @@ require 'ajaxlibs/libraries/jrails'
 require 'ajaxlibs/libraries/mootools'
 require 'ajaxlibs/libraries/prototype'
 require 'ajaxlibs/libraries/scriptaculous'
+require 'ajaxlibs/libraries/swfobject'
 require 'ajaxlibs/includes_helper'
 
 ActionView::Base.send(:include, Ajaxlibs::IncludesHelper) if Object.const_defined?(:ActionView)

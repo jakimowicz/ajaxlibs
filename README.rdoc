@@ -27,6 +27,7 @@ You can specify a specific version of each library to use, or the latest availab
 * mootools
 * prototype
 * scriptaculous
+* swfobject
 
 == Examples
 
@@ -116,7 +117,7 @@ Ajaxlibs prior to version 0.1.10 was copying all javascript libraries in all ava
 
 == TODO
 
-* support more javascript libraries : available though Google CDN (mootools, ...), not available through Google CDN (jrails, ...), available only from google (google maps, ...).
+* support more javascript libraries : available though Google CDN (yui), not available through Google CDN, available only from google (google maps, ...).
 
 == Note on Patches/Pull Requests
  
