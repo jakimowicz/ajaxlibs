@@ -98,14 +98,26 @@ describe "Ajaxlibs::Library" do
       @library.google_cdn_include_path.should == "http://ajax.googleapis.com/ajax/libs/basic/2.0.1.3/basic.js"
     end
     
-    it "will return a local path if library is local only" do
-      @library = Ajaxlibs::Library::Jrails.new
-      @library.include_path.should == @library.local_path
-    end
+    context "with a library supporting local distribution only" do
+      before :all do
+        # Jrails support is achieve through jrais gem which requires a rails environment.
+        # We simply disable jrails gem loading before testing.
+        class Ajaxlibs::Library::Jrails
+          def initialize(options = {})
+            super
+          end
+        end
+      end
     
-    it "will return a local path if library is local only even if asked for remote source" do
-      @library = Ajaxlibs::Library::Jrails.new(:source => :remote)
-      @library.include_path.should == @library.local_path
+      it "will return a local path" do
+        @library = Ajaxlibs::Library::Jrails.new
+        @library.include_path.should == @library.local_path
+      end
+    
+      it "will return a local path even if asked for remote source" do
+        @library = Ajaxlibs::Library::Jrails.new(:source => :remote)
+        @library.include_path.should == @library.local_path
+      end
     end
     
     context "will return a javascript code to load from google cdn with library_name and version" do
