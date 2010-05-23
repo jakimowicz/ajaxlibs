@@ -28,6 +28,8 @@ You can specify a specific version of each library to use, or the latest availab
 * prototype
 * scriptaculous
 * swfobject
+* Google Chrome Frame
+* Google Webfont
 
 == Examples
 
@@ -49,7 +51,7 @@ and in production :
 
 in development environment :
 
- <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script> 
+ <script src="/javascripts/ajaxlibs/jquery/1.4.2/jquery.min.js?1267013480" type="text/javascript"></script>
  <script src="/javascripts/ajaxlibs/jqueryui/1.7.2/jqueryui.min.js?1267013480" type="text/javascript"></script>
 
 this time in production :
@@ -89,7 +91,7 @@ will produce
 
 will produce :
 
- <script src="/javascripts/ajaxlibs/prototype/1.6.1.0/prototype.js?1267013480" type="text/javascript"></script> 
+ <script src="/javascripts/ajaxlibs/prototype/1.6.1.0/prototype.js?1267013480" type="text/javascript"></script>
  <script src="/javascripts/ajaxlibs/scriptaculous/1.8.3/scriptaculous.js?1267013481" type="text/javascript"></script>
 
 === define alternate production environments
@@ -120,7 +122,7 @@ Ajaxlibs prior to version 0.1.10 was copying all javascript libraries in all ava
 * support more javascript libraries : available though Google CDN (yui), not available through Google CDN, available only from google (google maps, ...).
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
