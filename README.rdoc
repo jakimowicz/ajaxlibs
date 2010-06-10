@@ -133,7 +133,7 @@ Ajaxlibs prior to version 0.1.10 was copying all javascript libraries in all ava
 
 == Contributors
 
-* Jesse Cooke : Chrome Frame & Webfont support
+* Jesse Cooke [jc00ke](http://github.com/jc00ke) : Chrome Frame & Webfont support
 
 == Copyright
 
